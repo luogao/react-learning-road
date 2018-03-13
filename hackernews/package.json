@@ -2,6 +2,7 @@
   "name": "hackernews",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.lglzy.cn/hackernews-react",
   "dependencies": {
     "classnames": "^2.2.5",
     "isomorphic-fetch": "^2.2.1",
