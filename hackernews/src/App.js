@@ -16,7 +16,7 @@ import {
   PARAM_HPP,
 } from './constants';
 
-
+// HOC
 const withLoading = (Component) => ({ isLoading, ...rest }) =>
   isLoading
     ? <Loading />
@@ -44,7 +44,8 @@ const updateSearchTopStoriesState = (hits, page) => (prevState) => {
         page
       }
     },
-    isLoading: false
+    isLoading: false,
+    error: null
   }
 }
 
@@ -64,7 +65,6 @@ class App extends Component {
     this.onSearchchange = this.onSearchchange.bind(this)
     this.onDismiss = this.onDismiss.bind(this)
     this.onSearchSubmit = this.onSearchSubmit.bind(this)
-
   }
 
   needsToSearchTopStories(searchTerm) {
@@ -97,7 +97,8 @@ class App extends Component {
       .then(res => res.json())
       .then(result => this.setSearchTopStories(result))
       .catch(e => this.setState({
-        error: e
+        error: e,
+        isLoading: false
       }))
   }
 
