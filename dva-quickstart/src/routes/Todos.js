@@ -5,7 +5,7 @@ import TodoList from '../components/TodoList'
 const Todos = ({ dispatch, todos }) => {
   function handleDelete(id) {
     dispatch({
-      type: 'todos/delete',
+      type: 'todos/deleteAfterOneSecond',
       payload: id
     })
   }

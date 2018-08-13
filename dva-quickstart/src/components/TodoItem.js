@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const TodoItem = ({ onClick, todo }) => {
-  const handleClick = (id) => {
-    onClick(todo.id)
-  }
+  const {id, title} = todo
   return (
-    <li key={todo.id}>
-      <span>{todo.title}</span>
-      <button onClick={handleClick}>delete</button>
+    <li>
+      <span>{title}</span>
+      <button onClick={() => onClick(id)}>delete</button>
     </li>
   )
 }
