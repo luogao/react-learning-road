@@ -10,6 +10,10 @@ export default {
   reducers: {
     delete(state, { payload: id }) {
       return state.filter(item => item.id !== id)
+    },
+    add(state, { payload: centent }) {
+      const newTodo = { title: centent, id: state.length + 1 }
+      return [...state, newTodo]
     }
   },
   effects: {
