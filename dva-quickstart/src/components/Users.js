@@ -10,11 +10,14 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/users',
-      search: stringify({page})
+      search: stringify({ page })
     }))
   }
   function deleteHandler(id) {
-    console.warn(`TODO: ${id}`)
+    dispatch({
+      type: 'users/remove',
+      payload: id
+    })
   }
   const columns = [
     {
