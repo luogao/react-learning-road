@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Table, Pagination, Popconfirm } from 'antd'
+import { Table, Pagination, Popconfirm, Button } from 'antd'
 import { stringify } from 'query-string'
 import { routerRedux } from 'dva/router'
 import styles from './Users.css'
@@ -13,6 +13,12 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
       pathname: '/users',
       search: stringify({ page })
     }))
+  }
+  function createHandler(values) {
+    dispatch({
+      type: 'users/create',
+      payload: values
+    })
   }
   function deleteHandler(id) {
     dispatch({
@@ -61,6 +67,11 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
   return (
     <div className={styles.normal}>
       <div>
+        <div className={styles.create}>
+          <UserModal record={{}} onOk={createHandler}>
+            <Button type="primary">Create User</Button>
+          </UserModal>
+        </div>
         <Table
           loading={loading}
           columns={columns}

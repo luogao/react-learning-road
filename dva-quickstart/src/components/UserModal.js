@@ -30,6 +30,7 @@ class UserEditModal extends Component {
       if (!err) {
         onOk(values)
         this.hideModalHandler()
+        this.props.form.resetFields()
       }
     })
   }
