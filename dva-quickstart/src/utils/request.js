@@ -24,7 +24,7 @@ function checkStatus(response) {
 export default async function request(url, options) {
   const response = await fetch(url, options)
   checkStatus(response)
-  const data = await response.json()
+  const data = await parseJSON(response)
   const ret = {
     data,
     headers: {}
