@@ -5,6 +5,7 @@ import { stringify } from 'query-string'
 import { routerRedux } from 'dva/router'
 import styles from './Users.css'
 import { PAGE_SIZE } from '../constants'
+import UserModal from './UserModal'
 
 function Users({ dispatch, list: dataSource, loading, total, page: current }) {
   function pageChangeHandler(page) {
@@ -17,6 +18,12 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
     dispatch({
       type: 'users/remove',
       payload: id
+    })
+  }
+  function editHandler(id, values) {
+    dispatch({
+      type: 'users/patch',
+      payload: { id, values }
     })
   }
   const columns = [
@@ -39,10 +46,12 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
     {
       title: 'Operation',
       key: 'operation',
-      render: (text, { id, name }) => (
+      render: (text, record) => (
         <span className={styles.operation}>
-          <a href="">Edit</a>
-          <Popconfirm title={`Confirm to delete ${name}?`} onConfirm={deleteHandler.bind(null, id)}>
+          <UserModal record={record} onOk={editHandler.bind(null, record.id)}>
+            <a href="">Edit</a>
+          </UserModal>
+          <Popconfirm title={`Confirm to delete ${record.name}?`} onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="">Delete</a>
           </Popconfirm>
         </span>
