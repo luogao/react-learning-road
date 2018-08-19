@@ -17,7 +17,7 @@ const ProductList = ({ onDelete, products }) => {
     }
   }]
   return (
-    <Table dataSource={products} columns={colums} />
+    <Table rowKey={product => product.id} dataSource={products} columns={colums} />
   )
 }
 

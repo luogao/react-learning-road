@@ -41,7 +41,7 @@ class Todos extends React.Component {
     const { content } = this.state
     const { todos } = this.props
     return (
-      <div style={{padding:"15px"}}>
+      <div>
         <h2>List of Todos</h2>
         <CreateTodo add={this.addTodo} content={content} handleInput={this.onChange} />
         <TodoList onDelete={this.handleDelete} todos={todos} />
