@@ -3,6 +3,9 @@ import { createBrowserHistory } from 'history';
 import createLoading from 'dva-loading'
 import './index.css';
 
+const AV  = require('leancloud-storage')
+AV.init('CeKinhLxkffgooe1eDMaD6v8-gzGzoHsz', 'dR9U7hgNR7QsTXF2XuONi3VC')
+
 // 1. Initialize
 const app = dva({
   history: createBrowserHistory(),
@@ -36,6 +39,7 @@ app.use(createLoading())
 app.model(require('./models/products').default)
 app.model(require('./models/todos').default)
 app.model(require('./models/users').default)
+app.model(require('./models/login').default)
 
 // 4. Router
 app.router(require('./router').default);

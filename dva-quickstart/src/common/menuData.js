@@ -16,5 +16,14 @@ export const menuData = [
     name: 'Products',
     path: '/products',
     icon: 'appstore'
+  }, {
+    name: 'Work Panel',
+    path: 'workPanel',
+    icon: 'calendar'
+  },
+  {
+    name: 'Login',
+    path: 'login',
+    icon: 'user'
   }
 ]

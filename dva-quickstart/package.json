@@ -11,6 +11,7 @@
     "babel-plugin-import": "^1.8.0",
     "dva": "^2.3.2",
     "dva-loading": "^2.0.5",
+    "leancloud-storage": "^3.10.0",
     "query-string": "^6.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

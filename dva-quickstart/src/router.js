@@ -5,6 +5,7 @@ import Products from './routes/Products'
 import Todos from './routes/Todos'
 import Users from './routes/Users'
 import MainLayout from './components/MainLayout'
+import Login from './components/Login';
 
 const { ConnectedRouter } = routerRedux
 
@@ -17,6 +18,7 @@ function RouterConfig({ history }) {
           <Route path="/products" exact component={Products} />
           <Route path="/todos" exact component={Todos} />
           <Route path="/users" exact component={Users} />
+          <Route path="/login" exact component={Login} />
         </MainLayout>
       </Switch>
     </ConnectedRouter>
