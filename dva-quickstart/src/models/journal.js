@@ -24,9 +24,14 @@ export default {
   },
   effects: {
     *create({ payload }, { call, put }) {
-      console.log(payload)
-      const data = {}
-      yield call(journalService.save, data)
+      const data = {
+        date: dayjs().format('YYYY.MM.DD'),
+        content: payload.toHTML(),
+        owner: AV.User.current(),
+        mood: 2 // 0 1 2
+      }
+      const res = yield call(journalService.save, data)
+      console.log(res)
       yield put({ type: 'save', payload })
     }
   },
