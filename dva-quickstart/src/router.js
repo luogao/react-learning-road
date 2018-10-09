@@ -4,8 +4,9 @@ import IndexPage from './routes/IndexPage'
 import Products from './routes/Products'
 import Todos from './routes/Todos'
 import Users from './routes/Users'
+import Login from './routes/Login';
+import Journal from './routes/Journal';
 import MainLayout from './components/MainLayout'
-import Login from './components/Login';
 
 const { ConnectedRouter } = routerRedux
 
@@ -19,6 +20,7 @@ function RouterConfig({ history }) {
           <Route path="/todos" exact component={Todos} />
           <Route path="/users" exact component={Users} />
           <Route path="/login" exact component={Login} />
+          <Route path="/journal" exact component={Journal} />
         </MainLayout>
       </Switch>
     </ConnectedRouter>

@@ -40,6 +40,7 @@ app.model(require('./models/products').default)
 app.model(require('./models/todos').default)
 app.model(require('./models/users').default)
 app.model(require('./models/login').default)
+app.model(require('./models/journal').default)
 
 // 4. Router
 app.router(require('./router').default);
