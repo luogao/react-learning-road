@@ -1,4 +1,7 @@
 import Journal from '../AV/Journal'
+import AV from 'leancloud-storage'
+
+const journalQuery = new AV.Query('Journal')
 
 
 export function save(data) {
@@ -6,4 +9,10 @@ export function save(data) {
   return new Journal({
     ...data
   }).save()
+}
+
+export function fetch({ user, date }) {
+  journalQuery.equalTo('owner', user)
+  journalQuery.equalTo('date', date)
+  return journalQuery.find()
 }

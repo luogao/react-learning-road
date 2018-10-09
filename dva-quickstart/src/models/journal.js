@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import * as journalService from '../services/journal'
 import AV from 'leancloud-storage'
+import queryString from 'query-string'
 
 
 export default {
@@ -15,7 +16,7 @@ export default {
   reducers: {
     setEditorState(state, { payload }) {
       console.log(payload)
-      return state
+      return { ...state, editorStateHTML: payload }
     },
     save(state, { payload }) {
       console.log(payload.toHTML())
@@ -33,6 +34,21 @@ export default {
       const res = yield call(journalService.save, data)
       console.log(res)
       yield put({ type: 'save', payload })
+    },
+    *fetch({ payload }, { call, put }) {
+      const res = yield call(journalService.fetch, { user: AV.User.current(), date: dayjs().format('YYYY.MM.DD') })
+      console.log(res[0].toJSON())
+      const content = res[0].toJSON().content
+      yield put({ type: 'setEditorState', payload: content })
     }
   },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname }) => {
+        if (pathname === '/journal') {
+          dispatch({ type: 'fetch' })
+        }
+      })
+    }
+  }
 }

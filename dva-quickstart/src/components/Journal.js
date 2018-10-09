@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Form, Icon, Input, Button, Checkbox, message, Row, Col } from 'antd'
-import BraftEditor from 'braft-editor'
+import BraftEditor, { EditorState } from 'braft-editor'
 import styles from './Journal.css'
 import 'braft-editor/dist/index.css'
 
@@ -28,15 +28,15 @@ class Journal extends React.Component {
   }
 
   render() {
-    const { editorState, currentDate, currentDay } = this.props
-
+    const { editorState, currentDate, currentDay, editorStateHTML } = this.props
+    const defaultValue = EditorState.createFrom(editorStateHTML)
     return (
       <div className={styles['journal-wrapper']}>
         <div className={styles['journal-header']}>
           <div className={styles.title}>{currentDate + ' ' + currentDay + ' 日志'}</div>
         </div >
         <div className={styles['journal-editor']}>
-          <BraftEditor value={editorState} onChange={this.handleEditorChange} onSave={this.submitContent} />
+          <BraftEditor value={defaultValue} onChange={this.handleEditorChange} onSave={this.submitContent} />
         </div>
       </div >
 
@@ -58,10 +58,10 @@ class Journal extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { editorState, currentDate, currentDay } = state.journal
+  const { editorState, currentDate, currentDay,editorStateHTML } = state.journal
   return {
     loading: state.loading.global,
-    editorState, currentDate, currentDay
+    editorState, currentDate, currentDay,editorStateHTML
   }
 }
 
