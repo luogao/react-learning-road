@@ -17,20 +17,22 @@ export default {
     editorState: null,
     editorStateHTML: '',
     currentDate: dayjs().format('YYYY.MM.DD'),
-    currentDay: dayjs().locale('zh-cn').format('dddd')
+    currentDay: dayjs().locale('zh-cn').format('dddd'),
+    currentObjectId: ''
   },
   reducers: {
     setEditorState(state, { payload }) {
       console.log(payload)
-      return { ...state, editorStateHTML: payload }
+      return { ...state, editorStateHTML: payload.content, currentObjectId: payload.objectId }
     },
     save(state, { payload }) {
-      console.log(payload.toHTML())
-      return { ...state, editorState: payload, editorStateHTML: payload.toHTML() }
+      const item = payload.toJSON()
+      return { ...state, editorStateHTML: item.content, currentObjectId: item.objectId }
     }
   },
   effects: {
     *create({ payload }, { call, put }) {
+      console.log(payload)
       const data = {
         date: dayjs().format('YYYY.MM.DD'),
         content: payload.toHTML(),
@@ -39,14 +41,14 @@ export default {
       }
       const res = yield call(journalService.save, data)
       console.log(res)
-      yield put({ type: 'save', payload })
+      yield put({ type: 'save', payload: res })
     },
     *fetch({ payload }, { call, put }) {
       const res = yield call(journalService.fetch, { user: AV.User.current(), date: dayjs().format('YYYY.MM.DD') })
       if (res[0]) {
         console.log(res[0].toJSON())
-        const content = res[0].toJSON().content
-        yield put({ type: 'setEditorState', payload: content })
+        const item = res[0].toJSON()
+        yield put({ type: 'setEditorState', payload: item })
       }
     }
   },
