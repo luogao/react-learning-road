@@ -3,7 +3,13 @@ import 'dayjs/locale/zh-cn'
 import * as journalService from '../services/journal'
 import AV from 'leancloud-storage'
 import queryString from 'query-string'
+import { message } from 'antd'
+import { routerRedux } from 'dva/router'
 
+const checkLogin = () => {
+  const isLogin = Object.prototype.toString.call(AV.User.current()) !== '[object Null]'
+  return isLogin
+}
 
 export default {
   namespace: 'journal',
@@ -37,16 +43,24 @@ export default {
     },
     *fetch({ payload }, { call, put }) {
       const res = yield call(journalService.fetch, { user: AV.User.current(), date: dayjs().format('YYYY.MM.DD') })
-      console.log(res[0].toJSON())
-      const content = res[0].toJSON().content
-      yield put({ type: 'setEditorState', payload: content })
+      if (res[0]) {
+        console.log(res[0].toJSON())
+        const content = res[0].toJSON().content
+        yield put({ type: 'setEditorState', payload: content })
+      }
     }
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
         if (pathname === '/journal') {
-          dispatch({ type: 'fetch' })
+          if (checkLogin()) {
+            dispatch({ type: 'fetch' })
+          } else {
+            message.warning('请先登录').then(() => {
+              dispatch(routerRedux.push('/login'))
+            })
+          }
         }
       })
     }
