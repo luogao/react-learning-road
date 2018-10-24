@@ -5,10 +5,16 @@ import './Control.css'
 
 class Control extends React.Component {
   render() {
-    const { onChange, color } = this.props
+    const { onChange, color, onSave } = this.props
     return (
       <div className='control-container'>
-        <SketchPicker color={color} onChange={onChange} />
+        <section>
+          <span> Background Color </span>
+          <SketchPicker color={color} onChange={onChange} />
+        </section>
+        <section>
+          <button onClick={onSave}>Download</button>
+        </section>
       </div>
     )
   }

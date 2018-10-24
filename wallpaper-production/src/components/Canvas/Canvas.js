@@ -11,17 +11,26 @@ class Canvas extends React.Component {
 
   initData() {
     const canvas = this.canvasRef.current
+    this.canvas = canvas
     this.ctx = canvas.getContext('2d')
   }
 
   draw() {
-    const { ctx } = this
+    const { ctx, canvas } = this
     const { bgColor, width, height } = this.props
     ctx.clearRect(0, 0, width, height)
     ctx.beginPath()
     ctx.rect(0, 0, width, height)
     ctx.fillStyle = bgColor
     ctx.fill()
+    this.getImgSrc(canvas)
+  }
+
+  getImgSrc(canvas) {
+    const { update } = this.props
+    const dataUrl = canvas.toDataURL('image/png')
+    update(dataUrl)
+    return dataUrl
   }
 
   componentDidMount() {
