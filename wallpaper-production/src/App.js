@@ -19,7 +19,7 @@ function base64Img2Blob(code) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
-function downloadFile(fileName, content){
+function downloadFile(fileName, content) {
   var aLink = document.createElement('a');
   var blob = base64Img2Blob(content); //new Blob([content]);
   aLink.download = fileName;
@@ -29,15 +29,25 @@ function downloadFile(fileName, content){
 
 class App extends Component {
   state = {
-    canvasWidth: 500,
-    canvasHeight: 500,
-    currentBgColor: '#feda46',
-    imgUrl: ''
+    imgUrl: '',
+    canvasData: {
+      width: 500,
+      height: 500,
+      bgColor: '#feda46',
+      words: {
+        text: '',
+        fontSize: 20,
+        color: '#000',
+        letterSpacing: 10
+      }
+    }
   }
 
-  handleColorChange(res) {
+  handleDataUpdate(key, value) {
+    const _canvasData = Object.assign({}, this.state.canvasData)
+    _canvasData[key] = value
     this.setState({
-      currentBgColor: res.hex
+      canvasData: _canvasData
     })
   }
 
@@ -51,11 +61,11 @@ class App extends Component {
   }
 
   render() {
-    const { canvasWidth, canvasHeight, currentBgColor } = this.state
+    const { canvasData } = this.state
     return (
       <div className="App">
-        <Canvas update={(res) => { this.handleCanvasUpdate(res) }} width={canvasWidth} height={canvasHeight} bgColor={currentBgColor} />
-        <Control onSave={() => { this.handleSave() }} color={currentBgColor} onChange={(res) => { this.handleColorChange(res) }} />
+        <Canvas update={(res) => { this.handleCanvasUpdate(res) }} data={canvasData} />
+        <Control dataUpdate={(key, value) => { this.handleDataUpdate(key, value) }} data={canvasData} onSave={() => { this.handleSave() }} />
       </div>
     );
   }
