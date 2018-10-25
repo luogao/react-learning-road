@@ -3,6 +3,9 @@
   height: 100vh;
   border-left: 1px solid #ccc;
   flex-shrink: 0;
+  overflow: auto;
+  padding-bottom: 1.5em;
+  box-sizing: border-box;
 }
 
 section + section{

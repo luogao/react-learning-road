@@ -33,8 +33,9 @@ class Canvas extends React.Component {
   draw() {
     const { ctx, canvas } = this
     const { data } = this.props
-    const { width, height, bgColor, words } = data
+    const { size, bgColor, words } = data
     const { color: textColor, fontSize, text, letterSpacing } = words
+    const { width, height } = size
 
     ctx.clearRect(0, 0, width, height)
     ctx.beginPath()
@@ -71,10 +72,13 @@ class Canvas extends React.Component {
 
   render() {
     const { data } = this.props
-    const { width, height } = data
+    const { size: { width, height } } = data
+
+    
     return (
       <div className="render">
-        <canvas ref={this.canvasRef} width={width} height={height}></canvas>
+        <canvas style={{maxWidth: '90%'}} ref={this.canvasRef} width={width} height={height}></canvas>
+        <div className="size-label">{width + '*' + height}</div>
       </div>
     )
   }

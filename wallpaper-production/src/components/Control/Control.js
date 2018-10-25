@@ -1,15 +1,18 @@
 import React from 'react'
 import { SketchPicker } from 'react-color'
+import { canvasSizeData } from '../../constants'
 
 import './Control.css'
 
 const defaultText = 'enter your words'
+
 
 class Control extends React.Component {
 
   constructor(props) {
     super(props)
     this.handleColorChange = this.handleColorChange.bind(this)
+    this.handleCanvasSizeChange = this.handleCanvasSizeChange.bind(this)
   }
 
   handleWordsDataChange(key, value) {
@@ -24,20 +27,43 @@ class Control extends React.Component {
     dataUpdate('bgColor', res.hex)
   }
 
+  handleCanvasSizeChange(e) {
+    const { dataUpdate } = this.props
+    const _value = e.currentTarget.value
+    const { data } = canvasSizeData.find(el => el.value === _value)
+    dataUpdate('size', data)
+  }
+
   render() {
     const { onSave, data } = this.props
-    
+
     return (
       <div className='control-container'>
         <section>
-          <span> Background Color </span>
-          <SketchPicker color={data.bgColor} onChange={this.handleColorChange} />
+          <h1> Canvas </h1>
+          <div>
+            <span> Size </span>
+            <select defaultValue={1} onChange={this.handleCanvasSizeChange}>
+              {
+                canvasSizeData.map(option => (
+                  <option value="1" key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div>
+            <span> Background Color </span>
+            <SketchPicker color={data.bgColor} onChange={this.handleColorChange} />
+          </div>
+
         </section>
         <section>
-          <span> Words </span>
+          <h1> Words </h1>
           <div>
-            <label>Text</label>
-            <input
+            <span> Content </span>
+            <textarea
+              rows="4"
+              cols="35"
               placeholder={defaultText}
               value={data.words.text}
               type="text"
@@ -50,7 +76,7 @@ class Control extends React.Component {
             />
           </div>
           <div>
-            <label>Font Size</label>
+            <span>Font Size</span>
             <input
               placeholder='change font size'
               value={data.words.fontSize}
@@ -61,7 +87,7 @@ class Control extends React.Component {
             />
           </div>
           <div>
-            <label>Letter Spacing</label>
+            <span>Letter Spacing</span>
             <input
               placeholder='change the letter spacing'
               value={data.words.letterSpacing}
@@ -72,7 +98,7 @@ class Control extends React.Component {
             />
           </div>
           <div>
-            <label>Text Color</label>
+            <span>Text Color</span>
             <SketchPicker
               color={data.words.color}
               onChange={

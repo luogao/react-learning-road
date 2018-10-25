@@ -31,14 +31,16 @@ class App extends Component {
   state = {
     imgUrl: '',
     canvasData: {
-      width: 500,
-      height: 500,
+      size: {
+        width: 1366,
+        height: 768
+      },
       bgColor: '#feda46',
       words: {
-        text: '',
-        fontSize: 20,
+        text: 'Welcome To Your Wallpaper',
+        fontSize: 36,
         color: '#000',
-        letterSpacing: 10
+        letterSpacing: 0
       }
     }
   }
