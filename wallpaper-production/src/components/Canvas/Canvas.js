@@ -58,7 +58,6 @@ class Canvas extends React.Component {
       color: textColor,
       letterSpacing,
       onHold(x, y) {
-        console.log(x, y)
         _words.position = { x, y }
         dataUpdate('words', _words)
       }

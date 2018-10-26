@@ -1,8 +1,10 @@
 class Text {
   constructor(options) {
+    console.clear()
     this.initData(options)
     this.draw()
     this.bindEvent()
+    console.log(3)
   }
 
   initData(props) {
@@ -60,9 +62,6 @@ class Text {
     if (self.inPath(_x, _y)) {
       document.body.style.cursor = '-webkit-grab'
       self.isInPath = true
-      if (self.isHold) {
-        self.handleHold(_x, _y)
-      }
     } else {
       self.isInPath = false
       document.body.style.cursor = 'default'
@@ -91,8 +90,13 @@ class Text {
     })
 
     canvas.addEventListener('mouseup', function (e) {
+      const _x = e.offsetX / self._scale
+      const _y = e.offsetY / self._scale
       self.isHold = false
       document.body.style.cursor = 'default'
+      if (self.isInPath) {
+        self.handleHold(_x, _y)
+      }
     })
   }
 
