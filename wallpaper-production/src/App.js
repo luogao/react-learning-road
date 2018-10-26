@@ -4,6 +4,8 @@ import Control from './components/Control/Control.js'
 
 import './App.css';
 
+const defaultText = '人间不值得'
+
 function base64Img2Blob(code) {
   var parts = code.split(';base64,');
   var contentType = parts[0].split(':')[1];
@@ -37,10 +39,14 @@ class App extends Component {
       },
       bgColor: '#feda46',
       words: {
-        text: 'Welcome To Your Wallpaper',
+        text: defaultText,
         fontSize: 36,
         color: '#000',
-        letterSpacing: 0
+        letterSpacing: 0,
+        position: {
+          x: 1366 / 2,
+          y: 768 / 2
+        }
       }
     }
   }
@@ -66,7 +72,7 @@ class App extends Component {
     const { canvasData } = this.state
     return (
       <div className="App">
-        <Canvas update={(res) => { this.handleCanvasUpdate(res) }} data={canvasData} />
+        <Canvas dataUpdate={(key, value) => { this.handleDataUpdate(key, value) }} update={(res) => { this.handleCanvasUpdate(res) }} data={canvasData} />
         <Control dataUpdate={(key, value) => { this.handleDataUpdate(key, value) }} data={canvasData} onSave={() => { this.handleSave() }} />
       </div>
     );

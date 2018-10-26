@@ -4,9 +4,6 @@ import { canvasSizeData } from '../../constants'
 
 import './Control.css'
 
-const defaultText = 'enter your words'
-
-
 class Control extends React.Component {
 
   constructor(props) {
@@ -46,7 +43,7 @@ class Control extends React.Component {
             <select defaultValue={1} onChange={this.handleCanvasSizeChange}>
               {
                 canvasSizeData.map(option => (
-                  <option value="1" key={option.value} value={option.value}>{option.label}</option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))
               }
             </select>
@@ -64,7 +61,7 @@ class Control extends React.Component {
             <textarea
               rows="4"
               cols="35"
-              placeholder={defaultText}
+              placeholder='enter your words'
               value={data.words.text}
               type="text"
               onChange={

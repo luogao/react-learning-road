@@ -5,6 +5,7 @@
 canvas {
   margin: 20px auto;
   display: block;
+  user-select: none;
 }
 
 .size-label {
