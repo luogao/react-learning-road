@@ -1,10 +1,8 @@
 class Text {
   constructor(options) {
-    console.clear()
     this.initData(options)
     this.draw()
     this.bindEvent()
-    console.log(3)
   }
 
   initData(props) {
