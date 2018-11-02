@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import nanoid from 'nanoid'
 import Canvas from './components/Canvas/Canvas.js'
 import Control from './components/Control/Control.js'
 
 import './App.css';
 
-const defaultText = '人间不值得'
+const defaultText = '...'
 
 function base64Img2Blob(code) {
   var parts = code.split(';base64,');
@@ -19,6 +20,12 @@ function base64Img2Blob(code) {
   }
 
   return new Blob([uInt8Array], { type: contentType });
+}
+
+function generate() {
+  const logoMarker = 'GWP'
+  const date = new Date().toLocaleDateString()
+  return `${logoMarker}-${date}-${nanoid(6)}`
 }
 
 function downloadFile(fileName, content) {
@@ -66,7 +73,7 @@ class App extends Component {
 
   handleSave() {
     const { imgUrl } = this
-    downloadFile('test', imgUrl)
+    downloadFile(generate(), imgUrl)
   }
 
   render() {
