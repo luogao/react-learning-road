@@ -18,12 +18,15 @@ export const menuData = [
     icon: 'appstore'
   }, {
     name: 'Journal',
-    path: 'journal',
+    path: '/journal',
     icon: 'calendar'
-  },
-  {
+  }, {
+    name: 'Journal List',
+    path: '/journal-list',
+    icon: 'bars'
+  }, {
     name: 'Login',
-    path: 'login',
+    path: '/login',
     icon: 'user'
   }
 ]

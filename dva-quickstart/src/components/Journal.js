@@ -1,18 +1,8 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Form, Icon, Input, Button, Checkbox, message, Row, Col } from 'antd'
 import BraftEditor, { EditorState } from 'braft-editor'
 import styles from './Journal.css'
 import 'braft-editor/dist/index.css'
-
-
-const loginSuccessMsg = () => {
-  message.success('登录成功!')
-}
-
-const loginErrorMsg = (msg) => {
-  message.error(msg)
-}
 
 class Journal extends React.Component {
   state = {

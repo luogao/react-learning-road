@@ -16,3 +16,8 @@ export function fetch({ user, date }) {
   journalQuery.equalTo('date', date)
   return journalQuery.find()
 }
+
+export function fetchAll({ user }) {
+  journalQuery.equalTo('owner', user)
+  return journalQuery.find()
+}

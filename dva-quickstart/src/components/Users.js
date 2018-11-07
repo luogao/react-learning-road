@@ -90,6 +90,7 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
     </div>
   )
 }
+
 function mapStateToProps(state) {
   const { list, total, page } = state.users
   return {
@@ -99,4 +100,5 @@ function mapStateToProps(state) {
     page,
   }
 }
+
 export default connect(mapStateToProps)(Users)
