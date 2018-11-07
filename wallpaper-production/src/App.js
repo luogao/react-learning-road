@@ -61,7 +61,6 @@ class App extends Component {
   handleDataUpdate(key, value) {
     const _canvasData = Object.assign({}, this.state.canvasData)
     _canvasData[key] = value
-    console.log(1)
     this.setState({
       canvasData: _canvasData
     })
