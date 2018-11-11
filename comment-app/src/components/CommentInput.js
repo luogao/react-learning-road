@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class CommentInput extends Component {
 
-  constructor() {
-    super()
+  static propTypes = {
+    username: PropTypes.any,
+    onSubmit: PropTypes.func,
+    onUserNameInputBlur: PropTypes.func
+  }
+
+  static defaultProps = {
+    username: ''
+  }
+
+  constructor(props) {
+    super(props)
     this.state = {
-      username: '',
+      username: props.username, // 从 props 上取 username 字段
       content: ''
     }
   }
@@ -17,48 +28,33 @@ class CommentInput extends Component {
       this.input.focus()
     }
   }
-
-  componentWillMount() {
-    this._loadUsername()
+  handleUsernameBlur(event) {
+    if (this.props.onUserNameInputBlur) {
+      this.props.onUserNameInputBlur(event.target.value)
+    }
   }
 
-  handleUsernameChange(e) {
-    const _value = e.target.value
+  handleUsernameChange(event) {
     this.setState({
-      username: _value
+      username: event.target.value
     })
   }
 
-  handleContentChange(e) {
-    const _value = e.target.value
+  handleContentChange(event) {
     this.setState({
-      content: _value
+      content: event.target.value
     })
   }
 
   handleSubmit() {
     if (this.props.onSubmit) {
-      const { username, content } = this.state
-      this.props.onSubmit({ username, content, createdTime: +new Date() })
+      this.props.onSubmit({
+        username: this.state.username,
+        content: this.state.content,
+        createdTime: +new Date()
+      })
     }
     this.setState({ content: '' })
-  }
-
-  _loadUsername() {
-    const username = localStorage.getItem('username')
-    if (username) {
-      this.setState({ username })
-    }
-  }
-
-  _saveUsername(username) {
-    localStorage.setItem('username', username)
-  }
-
-  handleUsernameBlur(e) {
-    if (e.target.value) {
-      this._saveUsername(e.target.value)
-    }
   }
 
   render() {
