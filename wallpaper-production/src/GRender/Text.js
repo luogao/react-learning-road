@@ -1,8 +1,7 @@
 class Text {
   constructor(options) {
     this.initData(options)
-    this.draw()
-    this.bindEvent()
+    // this.bindEvent()
   }
 
   initData(props) {
@@ -17,8 +16,9 @@ class Text {
     this.isInPath = false
   }
 
-  draw() {
-    const { canvas, ctx, text, position, color = "#000", fontSize = 16, letterSpacing = 10 } = this
+  draw(options) {
+    const { canvas, ctx } = this
+    const { text, position, color = '#000', fontSize = 16, letterSpacing = 10 } = options
     const { x, y } = position
     canvas.style.letterSpacing = `${letterSpacing}px`
     ctx.save()
@@ -26,7 +26,7 @@ class Text {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.font = `${fontSize}px system-ui`
-    ctx.fillText(text, x + (letterSpacing / 2), y)
+    ctx.fillText(text, x + letterSpacing / 2, y)
     ctx.restore()
   }
 
@@ -70,24 +70,23 @@ class Text {
     typeof this.onHold === 'function' && this.onHold(x, y)
   }
 
-  handleMouseleave() {
-
-  }
-
+  handleMouseleave() {}
 
   bindEvent() {
     const self = this
     const { canvas } = self
-    canvas.addEventListener('mousemove', function (e) {
+    canvas.addEventListener('mousemove', function(e) {
       self.handleMousemove(e.offsetX, e.offsetY)
     })
 
-    canvas.addEventListener('mousedown', function (e) {
+    canvas.addEventListener('mousedown', function(e) {
       self.isHold = true
-      if (self.isInPath) { document.body.style.cursor = '-webkit-grabbing' }
+      if (self.isInPath) {
+        document.body.style.cursor = '-webkit-grabbing'
+      }
     })
 
-    canvas.addEventListener('mouseup', function (e) {
+    canvas.addEventListener('mouseup', function(e) {
       const _x = e.offsetX / self._scale
       const _y = e.offsetY / self._scale
       self.isHold = false
@@ -97,8 +96,6 @@ class Text {
       }
     })
   }
-
-
 }
 
 export default Text
