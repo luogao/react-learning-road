@@ -57,7 +57,7 @@ class Control extends React.Component {
         <section>
           <h1> Words </h1>
           <div>
-            <span> Content </span>
+            <span>Content</span>
             <textarea
               rows="4"
               cols="35"

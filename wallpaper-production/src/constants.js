@@ -27,3 +27,5 @@ export const canvasSizeData = [{
   },
   label: '3840 * 2160'
 }]
+
+export const defaultText = '...'

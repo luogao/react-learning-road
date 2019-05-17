@@ -1,41 +1,9 @@
 import React, { Component } from 'react'
-import nanoid from 'nanoid'
 import Control from './components/Control/Control.js'
 import GRender from './GRender'
-
+import { generate, downloadFile } from './utils'
+import { defaultText } from './constants'
 import './App.css'
-
-const defaultText = '...'
-
-function base64Img2Blob(code) {
-  var parts = code.split(';base64,')
-  var contentType = parts[0].split(':')[1]
-  var raw = window.atob(parts[1])
-  var rawLength = raw.length
-
-  var uInt8Array = new Uint8Array(rawLength)
-
-  for (var i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i)
-  }
-
-  return new Blob([uInt8Array], { type: contentType })
-}
-
-function generate() {
-  const logoMarker = 'GWP'
-  const date = new Date().toLocaleDateString()
-  return `${logoMarker}-${date}-${nanoid(6)}`
-}
-
-function downloadFile(fileName, content) {
-  var aLink = document.createElement('a')
-  var blob = base64Img2Blob(content) //new Blob([content]);
-  aLink.download = fileName
-  aLink.href = URL.createObjectURL(blob)
-  aLink.click()
-}
-
 class App extends Component {
   state = {
     imgUrl: '',
@@ -122,12 +90,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="render">
-          <canvas
-            style={{ maxWidth: '90%' }}
-            ref={ref => (this.canvasRef = ref)}
-            width={width}
-            height={height}
-          />
+          <canvas style={{ maxWidth: '90%' }} ref={ref => (this.canvasRef = ref)} width={width} height={height} />
           <div className="size-label">{width + '*' + height}</div>
         </div>
         <Control
