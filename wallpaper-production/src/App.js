@@ -2,26 +2,23 @@ import React, { Component } from 'react'
 import Control from './components/Control/Control.js'
 import GRender from './GRender'
 import { generate, downloadFile } from './utils'
-import { defaultText } from './constants'
+import { defaultText, DEFAULT_WIDTH, DEFAULT_HEIGHT } from './constants'
 import './App.css'
+
 class App extends Component {
   state = {
     imgUrl: '',
     canvasData: {
       size: {
-        width: 1366,
-        height: 768
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT
       },
       bgColor: '#feda46',
       words: {
         text: defaultText,
         fontSize: 36,
         color: '#000',
-        letterSpacing: 0,
-        position: {
-          x: 1366 / 2,
-          y: 768 / 2
-        }
+        letterSpacing: 0
       }
     }
   }
@@ -37,12 +34,20 @@ class App extends Component {
   }
 
   draw(canvasData) {
+    console.log(' ??? ?? ?? ? ', canvasData)
     const self = this
     const { ctx } = self
     const { size, bgColor, words } = canvasData
     const { color: textColor, fontSize, text, letterSpacing, position } = words
     const { width, height } = size
+    const elementPosition = !position
+      ? {
+          x: width / 2,
+          y: height / 2
+        }
+      : position
 
+    console.log(elementPosition)
     ctx.clearRect(0, 0, width, height)
     ctx.beginPath()
     ctx.rect(0, 0, width, height)
@@ -51,7 +56,7 @@ class App extends Component {
 
     this.GText.draw({
       text,
-      position: { x: position.x, y: position.y },
+      position: elementPosition,
       fontSize: fontSize,
       color: textColor,
       letterSpacing
@@ -68,16 +73,20 @@ class App extends Component {
     this.draw(this.state.canvasData)
   }
 
-  handleDataUpdate(key, value) {
+  handleDataUpdate = (key, value) => {
     const _canvasData = Object.assign({}, this.state.canvasData)
     _canvasData[key] = value
+    console.log(_canvasData)
     this.setState({
       canvasData: _canvasData
     })
-    this.draw(_canvasData)
   }
 
-  handleSave() {
+  componentDidUpdate() {
+    this.draw(this.state.canvasData)
+  }
+
+  handleSave = () => {
     const { canvas } = this
     downloadFile(generate(), this.getImgSrc(canvas))
   }
@@ -93,15 +102,7 @@ class App extends Component {
           <canvas style={{ maxWidth: '90%' }} ref={ref => (this.canvasRef = ref)} width={width} height={height} />
           <div className="size-label">{width + '*' + height}</div>
         </div>
-        <Control
-          dataUpdate={(key, value) => {
-            this.handleDataUpdate(key, value)
-          }}
-          data={canvasData}
-          onSave={() => {
-            this.handleSave()
-          }}
-        />
+        <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} />
       </div>
     )
   }

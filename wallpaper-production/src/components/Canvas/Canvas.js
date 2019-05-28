@@ -15,32 +15,6 @@ class Canvas extends React.Component {
     this.ctx = canvas.getContext('2d')
   }
 
-  draw() {
-    const self = this
-    const { ctx, canvas } = self
-    const { data } = self.props
-    const { size, bgColor, words } = data
-    const { color: textColor, fontSize, text, letterSpacing, position } = words
-    const { width, height } = size
-
-    ctx.clearRect(0, 0, width, height)
-    ctx.beginPath()
-    ctx.rect(0, 0, width, height)
-    ctx.fillStyle = bgColor
-    ctx.fill()
-    
-    new GRender.Text({
-      canvas,
-      ctx,
-      text,
-      position: { x: position.x, y: position.y },
-      fontSize: fontSize,
-      color: textColor,
-      letterSpacing
-    })
-    self.getImgSrc(canvas)
-  }
-
   getImgSrc(canvas) {
     const { update } = this.props
     const dataUrl = canvas.toDataURL('image/png')
@@ -50,10 +24,6 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     this.initData()
-    this.draw()
-  }
-
-  componentDidUpdate() {
     this.draw()
   }
 
