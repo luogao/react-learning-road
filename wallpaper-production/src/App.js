@@ -69,8 +69,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.initCanvasData()
-    this.draw(this.state.canvasData)
+    // this.initCanvasData()
+    // this.draw(this.state.canvasData)
   }
 
   handleDataUpdate = (key, value) => {
@@ -95,14 +95,16 @@ class App extends Component {
     const { canvasData } = this.state
     const { width, height } = canvasData.size
 
-    console.log('render')
     return (
       <div className="App">
-        <div className="render">
+        <div className='under-construction'>
+          UNDER  construction, COME  tomorrow
+        </div>
+        {/* <div className="render">
           <canvas style={{ maxWidth: '90%' }} ref={ref => (this.canvasRef = ref)} width={width} height={height} />
           <div className="size-label">{width + '*' + height}</div>
         </div>
-        <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} />
+        <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} /> */}
       </div>
     )
   }
