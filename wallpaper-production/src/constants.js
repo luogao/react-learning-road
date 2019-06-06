@@ -40,7 +40,32 @@ export const canvasSizeData = [
     label: '800 * 800'
   }
 ]
+export const fontWeightData = [
+  {
+    value: 'normal',
+    label: 'normal'
+  },
+  {
+    value: 'bold',
+    label: 'bold'
+  },
+  {
+    value: '100',
+    label: '100'
+  },
+  {
+    value: '200',
+    label: '200'
+  },
+  {
+    value: '300',
+    label: '300'
+  }
+]
 
-export const defaultText = '...'
+export const defaultText = '“欢迎”'
 export const DEFAULT_WIDTH = 1366
 export const DEFAULT_HEIGHT = 768
+export const DEFAULT_COLOR = '#000'
+export const DEFAULT_BACKGROUND_COLOR = '#fff'
+export const DEFAULT_FONT_WEIGHT = '200'

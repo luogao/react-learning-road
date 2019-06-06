@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import Control from './components/Control/Control.js'
 import GRender from './GRender'
 import { generate, downloadFile } from './utils'
-import { defaultText, DEFAULT_WIDTH, DEFAULT_HEIGHT } from './constants'
+import { defaultText, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_COLOR, DEFAULT_BACKGROUND_COLOR, DEFAULT_FONT_WEIGHT } from './constants'
 import './App.css'
+
+const getInitFontSize = ({ fromSize = 36, canvasWidth = DEFAULT_WIDTH } = {}) => (fromSize * canvasWidth) / DEFAULT_WIDTH
 
 class App extends Component {
   state = {
@@ -13,12 +15,13 @@ class App extends Component {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT
       },
-      bgColor: '#feda46',
+      bgColor: DEFAULT_BACKGROUND_COLOR,
       words: {
         text: defaultText,
-        fontSize: 36,
-        color: '#000',
-        letterSpacing: 0
+        fontSize: getInitFontSize(),
+        fontWeight: DEFAULT_FONT_WEIGHT,
+        color: DEFAULT_COLOR,
+        letterSpacing: 5
       }
     }
   }
@@ -34,11 +37,10 @@ class App extends Component {
   }
 
   draw(canvasData) {
-    console.log(' ??? ?? ?? ? ', canvasData)
     const self = this
     const { ctx } = self
     const { size, bgColor, words } = canvasData
-    const { color: textColor, fontSize, text, letterSpacing, position } = words
+    const { position } = words
     const { width, height } = size
     const elementPosition = !position
       ? {
@@ -47,7 +49,6 @@ class App extends Component {
         }
       : position
 
-    console.log(elementPosition)
     ctx.clearRect(0, 0, width, height)
     ctx.beginPath()
     ctx.rect(0, 0, width, height)
@@ -55,11 +56,8 @@ class App extends Component {
     ctx.fill()
 
     this.GText.draw({
-      text,
-      position: elementPosition,
-      fontSize: fontSize,
-      color: textColor,
-      letterSpacing
+      ...words,
+      position: elementPosition
     })
   }
 
@@ -69,8 +67,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.initCanvasData()
-    // this.draw(this.state.canvasData)
+    this.initCanvasData()
+    this.draw(this.state.canvasData)
   }
 
   handleDataUpdate = (key, value) => {
@@ -97,14 +95,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className='under-construction'>
+        {/* <div className='under-construction'>
           UNDER  construction, COME  tomorrow
-        </div>
-        {/* <div className="render">
+        </div> */}
+        <div className="render">
           <canvas style={{ maxWidth: '90%' }} ref={ref => (this.canvasRef = ref)} width={width} height={height} />
           <div className="size-label">{width + '*' + height}</div>
         </div>
-        <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} /> */}
+        <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} />
       </div>
     )
   }

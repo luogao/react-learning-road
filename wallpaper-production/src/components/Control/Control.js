@@ -1,11 +1,10 @@
 import React from 'react'
 import { SketchPicker } from 'react-color'
-import { canvasSizeData } from '../../constants'
+import { canvasSizeData, fontWeightData, DEFAULT_FONT_WEIGHT } from '../../constants'
 
 import './Control.css'
 
 class Control extends React.Component {
-
   constructor(props) {
     super(props)
     this.handleColorChange = this.handleColorChange.bind(this)
@@ -35,24 +34,23 @@ class Control extends React.Component {
     const { onSave, data } = this.props
 
     return (
-      <div className='control-container'>
+      <div className="control-container">
         <section>
           <h1> Canvas </h1>
           <div>
             <span> Size </span>
             <select defaultValue={1} onChange={this.handleCanvasSizeChange}>
-              {
-                canvasSizeData.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
+              {canvasSizeData.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
           <div>
             <span> Background Color </span>
             <SketchPicker color={data.bgColor} onChange={this.handleColorChange} />
           </div>
-
         </section>
         <section>
           <h1> Words </h1>
@@ -61,46 +59,54 @@ class Control extends React.Component {
             <textarea
               rows="4"
               cols="35"
-              placeholder='enter your words'
+              placeholder="enter your words"
               value={data.words.text}
               type="text"
-              onChange={
-                (e) => {
-                  let value = e.currentTarget.value
-                  this.handleWordsDataChange('text', value)
-                }
-              }
+              onChange={e => {
+                let value = e.currentTarget.value
+                this.handleWordsDataChange('text', value)
+              }}
             />
           </div>
           <div>
             <span>Font Size</span>
             <input
-              placeholder='change font size'
+              placeholder="change font size"
               value={data.words.fontSize}
               type="number"
-              onChange={
-                (e) => { this.handleWordsDataChange('fontSize', e.currentTarget.value) }
-              }
+              onChange={e => {
+                this.handleWordsDataChange('fontSize', e.currentTarget.value)
+              }}
             />
+          </div>
+          <div>
+            <span>Font Weight</span>
+            <select defaultValue={DEFAULT_FONT_WEIGHT} onChange={e => this.handleWordsDataChange('fontWeight', e.currentTarget.value)}>
+              {fontWeightData.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <span>Letter Spacing</span>
             <input
-              placeholder='change the letter spacing'
+              placeholder="change the letter spacing"
               value={data.words.letterSpacing}
               type="number"
-              onChange={
-                (e) => { this.handleWordsDataChange('letterSpacing', e.currentTarget.value) }
-              }
+              onChange={e => {
+                this.handleWordsDataChange('letterSpacing', e.currentTarget.value)
+              }}
             />
           </div>
           <div>
             <span>Text Color</span>
             <SketchPicker
               color={data.words.color}
-              onChange={
-                (res) => { this.handleWordsDataChange('color', res.hex) }
-              }
+              onChange={res => {
+                this.handleWordsDataChange('color', res.hex)
+              }}
             />
           </div>
         </section>

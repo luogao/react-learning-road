@@ -18,14 +18,14 @@ class Text {
 
   draw(options) {
     const { canvas, ctx } = this
-    const { text, position, color = '#000', fontSize = 16, letterSpacing = 10 } = options
+    const { fontWeight = 'normal', text, position, color = '#000', fontSize = 16, letterSpacing = 10 } = options
     const { x, y } = position
     canvas.style.letterSpacing = `${letterSpacing}px`
     ctx.save()
     ctx.fillStyle = color
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.font = `${fontSize}px system-ui`
+    ctx.font = `${fontWeight} ${fontSize}px system-ui`
     ctx.fillText(text, x + letterSpacing / 2, y)
     ctx.restore()
   }
