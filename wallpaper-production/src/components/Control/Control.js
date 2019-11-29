@@ -3,6 +3,7 @@ import { SketchPicker } from 'react-color'
 import { canvasSizeData, fontWeightData, DEFAULT_FONT_WEIGHT } from '../../constants'
 
 import './Control.css'
+import GColorPicker from '../GColorPicker'
 
 class Control extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Control extends React.Component {
     const { onSave, data } = this.props
 
     return (
-      <div className="control-container">
+      <div className='control-container'>
         <section>
           <h1> Canvas </h1>
           <div>
@@ -49,7 +50,7 @@ class Control extends React.Component {
           </div>
           <div>
             <span> Background Color </span>
-            <SketchPicker color={data.bgColor} onChange={this.handleColorChange} />
+            <GColorPicker color={data.bgColor} onChange={this.handleColorChange} />
           </div>
         </section>
         <section>
@@ -57,11 +58,11 @@ class Control extends React.Component {
           <div>
             <span>Content</span>
             <textarea
-              rows="4"
-              cols="35"
-              placeholder="enter your words"
+              rows='4'
+              cols='35'
+              placeholder='enter your words'
               value={data.words.text}
-              type="text"
+              type='text'
               onChange={e => {
                 let value = e.currentTarget.value
                 this.handleWordsDataChange('text', value)
@@ -71,9 +72,9 @@ class Control extends React.Component {
           <div>
             <span>Font Size</span>
             <input
-              placeholder="change font size"
+              placeholder='change font size'
               value={data.words.fontSize}
-              type="number"
+              type='number'
               onChange={e => {
                 this.handleWordsDataChange('fontSize', e.currentTarget.value)
               }}
@@ -92,9 +93,9 @@ class Control extends React.Component {
           <div>
             <span>Letter Spacing</span>
             <input
-              placeholder="change the letter spacing"
+              placeholder='change the letter spacing'
               value={data.words.letterSpacing}
-              type="number"
+              type='number'
               onChange={e => {
                 this.handleWordsDataChange('letterSpacing', e.currentTarget.value)
               }}
@@ -102,7 +103,7 @@ class Control extends React.Component {
           </div>
           <div>
             <span>Text Color</span>
-            <SketchPicker
+            <GColorPicker
               color={data.words.color}
               onChange={res => {
                 this.handleWordsDataChange('color', res.hex)

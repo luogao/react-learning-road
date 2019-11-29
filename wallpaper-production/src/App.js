@@ -94,13 +94,13 @@ class App extends Component {
     const { width, height } = canvasData.size
 
     return (
-      <div className="App">
+      <div className='App'>
         {/* <div className='under-construction'>
           UNDER  construction, COME  tomorrow
         </div> */}
-        <div className="render">
+        <div className='render'>
           <canvas style={{ maxWidth: '90%' }} ref={ref => (this.canvasRef = ref)} width={width} height={height} />
-          <div className="size-label">{width + '*' + height}</div>
+          <div className='size-label'>{width + '*' + height}</div>
         </div>
         <Control dataUpdate={this.handleDataUpdate} data={canvasData} onSave={this.handleSave} />
       </div>

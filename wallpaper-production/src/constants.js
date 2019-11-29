@@ -63,7 +63,7 @@ export const fontWeightData = [
   }
 ]
 
-export const defaultText = '“欢迎”'
+export const defaultText = '「 欢迎 」'
 export const DEFAULT_WIDTH = 1366
 export const DEFAULT_HEIGHT = 768
 export const DEFAULT_COLOR = '#000'
